@@ -77,7 +77,7 @@ class Runs:
                 runId = run.Id
                 if runName and runName == run.ExperimentName:
                     expName = run.ExperimentName
-                    runFiles = Samples.__get_files_to_download(myAPI, runId)
+                    runFiles = Runs.__get_files_to_download(myAPI, runId)
                     if 0 < len(runFiles):
                         break
             if not expName:
