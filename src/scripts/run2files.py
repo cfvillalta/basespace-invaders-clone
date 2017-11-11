@@ -30,7 +30,7 @@ class Runs:
     logging.basicConfig()
 
     @staticmethod
-    def __get_files_to_download(myAPI, runId, fileLimit=10000000):
+    def __get_files_to_download(myAPI, runId, fileLimit=9999):
         return myAPI.getRunFilesById(Id=runId, queryPars=qp({'Limit' : fileLimit}))
 
     @staticmethod
