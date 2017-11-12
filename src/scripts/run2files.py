@@ -34,7 +34,7 @@ class Runs:
         return myAPI.getRunFilesById(Id=runId, queryPars=qp({'Limit' : fileLimit}))
 
     @staticmethod
-    def download(clientKey=None, clientSecret=None, accessToken=None, runId=None, runName=None, outputDirectory='\.', createBsDir=True):
+    def download(clientKey=None, clientSecret=None, accessToken=None, runId=None, runName=None, outputDirectory='\.', createBsDir=True,n1=None,n2=None):
         '''
         Downloads run-level files.
 
@@ -54,7 +54,7 @@ class Runs:
         appSessionId = ''
         apiServer = 'https://api.basespace.illumina.com/' # or 'https://api.cloud-hoth.illumina.com/'
         apiVersion = 'v1pre3'
-        fileLimit = 1024
+        fileLimit = 9999
         runLimit = 100         
 
         # init the API
@@ -90,7 +90,7 @@ class Runs:
         numFiles = len(runFiles)
         print "Will download files from %d ." % numFiles
         i = 0
-        for runFile in runFiles:
+        for runFile in runFiles[n1:n2]:
             outDir = os.path.join(outputDirectory, expName)
             print 'Downloading (%d/%d): %s' % ((i+1), numFiles, str())
             print "BaseSpace File Path: %s" % runFile.Path
@@ -124,6 +124,9 @@ if __name__ == '__main__':
     group = OptionGroup(parser, "Miscellaneous options")
     group.add_option('-d', '--dry-run', help='dry run; do not download the files', dest='dryRun', action='store_true', default=False)
     group.add_option('-o', '--output-directory', help='the output directory', dest='outputDirectory', default='./')
+    group.add_option('--get-n1', help='start packet', dest='n1')
+    group.add_option('--get-n2', help='stop packet', dest='n2')
+
     parser.add_option_group(group)
     
     if len(sys.argv[1:]) < 1:
@@ -149,4 +152,10 @@ if __name__ == '__main__':
             options.accessToken, \
             runId=options.runId, \
             runName=options.runName, \
-            outputDirectory=options.outputDirectory)
+            outputDirectory=options.outputDirectory,
+            n1=int(options.n1),
+            n2 = int(options.n2)
+
+            )
+
+
