@@ -97,9 +97,9 @@ class Runs:
 
         for runFile in runFiles[int(n1):int(n2)]:
             outDir = os.path.join(outputDirectory, expName)
-            print 'Downloading (%d/%d): %s' % ((i+1), numFiles, str())
-            print "BaseSpace File Path: %s" % runFile.Path
-            print "Destination File Path: %s" % os.path.join(outDir, runFile.Name)
+            #print 'Downloading (%d/%d): %s' % ((i+1), numFiles, str())
+            #print "BaseSpace File Path: %s" % runFile.Path
+            #print "Destination File Path: %s" % os.path.join(outDir, runFile.Name)
             if not options.dryRun:
                 runFile.downloadFile(myAPI, outDir, createBsDir=createBsDir)
             i = i + 1
